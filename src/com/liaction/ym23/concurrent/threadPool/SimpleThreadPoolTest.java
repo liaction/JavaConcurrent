@@ -22,6 +22,7 @@ public class SimpleThreadPoolTest {
                 Optional.of("The task " + index + " end." + " service thread: " + Thread.currentThread()).ifPresent(System.out::println);
             });
         });
+        simpleThreadPool.start();
         try {
             Thread.sleep(1_000L);
         } catch (InterruptedException e) {

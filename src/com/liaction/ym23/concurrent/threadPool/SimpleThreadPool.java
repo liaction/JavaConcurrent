@@ -17,6 +17,7 @@ public class SimpleThreadPool extends Thread {
     private final static Object LOCK = new Object();
 
     private boolean destroyed = false;
+    private boolean stared = false;
 
     public SimpleThreadPool() {
         this(DEFAULT_POOL_SIZE);
@@ -38,6 +39,14 @@ public class SimpleThreadPool extends Thread {
         synchronized (WORK_QUEUE) {
             WORK_QUEUE.addLast(runnable);
             WORK_QUEUE.notifyAll();
+        }
+    }
+
+    @Override
+    public synchronized void start() {
+        if (!stared){
+            super.start();
+            stared = true;
         }
     }
 
